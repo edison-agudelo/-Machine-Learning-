@@ -1,0 +1,231 @@
+{% extends "base.html" %}
+
+{% block content %}
+<!-- Título de metodología -->
+<div class="methodology-header">
+    <div class="container">
+        <h1>Metodología de Investigación</h1>
+        <p>Proceso sistemático utilizado para analizar los casos de uso de Machine Learning Supervisado</p>
+    </div>
+</div>
+
+<!-- Descripción general -->
+<div class="methodology-overview">
+    <div class="container">
+        <h2>Enfoque General</h2>
+        <p>{{ research.methodology }}</p>
+        
+        <div class="research-scope">
+            <h3>Alcance de la Investigación</h3>
+            <div class="scope-grid">
+                <div class="scope-item">
+                    <h4>Casos Analizados</h4>
+                    <p>{{ metrics.total_cases }} casos de uso principales</p>
+                </div>
+                <div class="scope-item">
+                    <h4>Papers Revisados</h4>
+                    <p>{{ metrics.papers_reviewed }} publicaciones académicas</p>
+                </div>
+                <div class="scope-item">
+                    <h4>Industrias Cubiertas</h4>
+                    <p>{{ metrics.industries_covered }} sectores diferentes</p>
+                </div>
+                <div class="scope-item">
+                    <h4>Algoritmos Evaluados</h4>
+                    <p>{{ metrics.algorithms_analyzed }} técnicas de ML</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Proceso paso a paso -->
+<div class="methodology-process">
+    <div class="container">
+        <h2>Proceso de Investigación</h2>
+        <p>La investigación se llevó a cabo siguiendo estos pasos metodológicos:</p>
+        
+        <div class="process-steps">
+            <div class="step">
+                <div class="step-number">1</div>
+                <div class="step-content">
+                    <h3>Revisión de Literatura</h3>
+                    <p>Se realizó una búsqueda sistemática de papers académicos, artículos de investigación y documentación técnica sobre Machine Learning Supervisado.</p>
+                    <ul>
+                        <li>Búsqueda en bases de datos académicas</li>
+                        <li>Revisión de {{ metrics.papers_reviewed }} publicaciones</li>
+                        <li>Selección de casos de uso relevantes</li>
+                        <li>Identificación de algoritmos principales</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="step">
+                <div class="step-number">2</div>
+                <div class="step-content">
+                    <h3>Análisis de Datasets</h3>
+                    <p>Se examinaron datasets públicos y casos de estudio para comprender las aplicaciones prácticas de cada algoritmo.</p>
+                    <ul>
+                        <li>Revisión de {{ metrics.datasets_reviewed }} datasets principales</li>
+                        <li>Análisis de tamaños y características</li>
+                        <li>Evaluación de calidad de datos</li>
+                        <li>Documentación de métricas de rendimiento</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="step">
+                <div class="step-number">3</div>
+                <div class="step-content">
+                    <h3>Evaluación de Algoritmos</h3>
+                    <p>Se analizó el rendimiento y aplicabilidad de diferentes algoritmos de Machine Learning Supervisado.</p>
+                    <ul>
+                        <li>Comparación de {{ metrics.algorithms_analyzed }} algoritmos</li>
+                        <li>Análisis de métricas de precisión</li>
+                        <li>Evaluación de casos de uso prácticos</li>
+                        <li>Identificación de fortalezas y limitaciones</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="step">
+                <div class="step-number">4</div>
+                <div class="step-content">
+                    <h3>Documentación y Síntesis</h3>
+                    <p>Se organizó y documentó toda la información recopilada para crear esta presentación web.</p>
+                    <ul>
+                        <li>Organización de {{ metrics.total_cases }} casos de uso</li>
+                        <li>Creación de documentación técnica</li>
+                        <li>Desarrollo de la aplicación web</li>
+                        <li>Presentación de resultados</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Criterios de selección -->
+<div class="selection-criteria">
+    <div class="container">
+        <h2>Criterios de Selección</h2>
+        <p>Los casos de uso fueron seleccionados basándose en los siguientes criterios:</p>
+        
+        <div class="criteria-list">
+            <div class="criteria-item">
+                <h4>1. Relevancia Práctica</h4>
+                <p>Casos con aplicaciones reales en la industria y impacto significativo en la sociedad.</p>
+            </div>
+            
+            <div class="criteria-item">
+                <h4>2. Diversidad de Algoritmos</h4>
+                <p>Representación de diferentes tipos de algoritmos supervisados (clasificación y regresión).</p>
+            </div>
+            
+            <div class="criteria-item">
+                <h4>3. Disponibilidad de Datos</h4>
+                <p>Casos con datasets públicos y métricas de rendimiento documentadas.</p>
+            </div>
+            
+            <div class="criteria-item">
+                <h4>4. Variedad de Industrias</h4>
+                <p>Cobertura de diferentes sectores: salud, finanzas, tecnología y retail.</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Herramientas utilizadas -->
+<div class="tools-used">
+    <div class="container">
+        <h2>Herramientas y Tecnologías</h2>
+        <p>Para el desarrollo de esta investigación y aplicación web se utilizaron:</p>
+        
+        <div class="tools-grid">
+            <div class="tool-category">
+                <h3>Investigación</h3>
+                <ul>
+                    <li>Google Scholar</li>
+                    <li>Papers académicos</li>
+                    <li>Kaggle Datasets</li>
+                    <li>Documentación técnica</li>
+                </ul>
+            </div>
+            
+            <div class="tool-category">
+                <h3>Desarrollo Web</h3>
+                <ul>
+                    <li>Python Flask</li>
+                    <li>Jinja2 Templates</li>
+                    <li>HTML5 y CSS3</li>
+                    <li>Diseño responsivo</li>
+                </ul>
+            </div>
+            
+            <div class="tool-category">
+                <h3>Análisis de Datos</h3>
+                <ul>
+                    <li>Revisión de métricas</li>
+                    <li>Comparación de algoritmos</li>
+                    <li>Evaluación de datasets</li>
+                    <li>Documentación de resultados</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Información del equipo -->
+<div class="team-info">
+    <div class="container">
+        <h2>Información del Proyecto</h2>
+        
+        <div class="project-details">
+            <div class="detail-section">
+                <h3>Institución</h3>
+                <p>{{ team.institution }}</p>
+            </div>
+            
+            <div class="detail-section">
+                <h3>Departamento</h3>
+                <p>{{ team.department }}</p>
+            </div>
+            
+            <div class="detail-section">
+                <h3>Curso</h3>
+                <p>{{ team.course }}</p>
+            </div>
+            
+            <div class="detail-section">
+                <h3>Año</h3>
+                <p>{{ research.date }}</p>
+            </div>
+        </div>
+        
+        <div class="researcher-info">
+            <h3>Equipo de Investigación</h3>
+            {% for researcher in team.researchers %}
+            <div class="researcher-card">
+                <h4>{{ researcher.name }}</h4>
+                <p><strong>Rol:</strong> {{ researcher.role }}</p>
+                <p><strong>Especialización:</strong> {{ researcher.specialization }}</p>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+
+<!-- Navegación final -->
+<div class="methodology-navigation">
+    <div class="container">
+        <div class="nav-buttons">
+            <a href="{{ url_for('index') }}" class="btn btn-secondary">
+                Volver al Inicio
+            </a>
+            <a href="{{ url_for('casos') }}" class="btn btn-primary">
+                Ver Casos de Uso
+            </a>
+        </div>
+    </div>
+</div>
+{% endblock %}
