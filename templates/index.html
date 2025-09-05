@@ -1,3 +1,234 @@
+
+hola nesecito ayuda para crear un documento y un repositorio sobre esto 
+
+Crear una aplicación en Flask para mostrar la investigación.
+Usa render_template() para visualizar la información en un archivo HTML.
+Aplicar estilos básicos con CSS para mejorar la presentación de la página.
+¡Hola! Te ayudo a crear una aplicación Flask completa con documentación y estructura de repositorio. Voy a crear todo lo necesario para que puedas mostrar tu investigación de manera profesional.
+
+Documentación - Aplicación Flask para Investigación
+Documento 
+Ahora voy a crear la aplicación Flask completa con todos los archivos necesarios:
+
+app.py - Aplicación Principal Flask
+Código 
+data/research_data.py - Datos de Investigación
+Código 
+templates/base.html - Plantilla Base
+Artefacto interactivo 
+templates/index.html - Página Principal
+Artefacto interactivo 
+templates/research.html - Página de Investigación
+Artefacto interactivo 
+templates/about.html - Página Acerca de
+Artefacto interactivo 
+Continuar
+
+templates/about.html - Página Acerca de
+Artefacto interactivo ∙ Versión 2 
+Ahora voy a crear el archivo CSS con estilos modernos y responsivos:
+
+static/css/style.css - Estilos CSS
+Código 
+Continuar
+
+static/css/style.css - Estilos CSS
+Código ∙ Versión 2 
+nesecito que me ayudes a crearlo 1 a 1
+
+¡Perfecto! Te voy a ayudar a crear cada archivo uno por uno. Empezaremos con la estructura básica del proyecto.
+
+Paso 1: Crear la estructura de carpetas
+Primero, crea esta estructura de carpetas en tu proyecto:
+
+flask-research-app/
+├── app.py
+├── requirements.txt
+├── templates/
+├── static/
+│   ├── css/
+│   └── js/
+└── data/
+Paso 2: Archivo requirements.txt
+requirements.txt
+Código 
+Instrucciones para requirements.txt:
+
+Crea un archivo llamado requirements.txt en la carpeta raíz del proyecto
+Copia el contenido del artifact anterior
+Guarda el archivo
+¿Ya creaste el archivo requirements.txt? Cuando esté listo, continuamos con el siguiente archivo.
+
+
+El propósito de esta actividad es que los estudiantes investiguen cuatro casos de uso relevantes de Machine Learning Supervisado y presenten sus hallazgos dentro de una aplicación web utilizando Flask como framework backend y Jinja2 para la visualización en un template HTML.
+
+la idea es que quede con estos recursos en vez de los que me estas dando
+
+Perfecto, entiendo. Vamos a crear la aplicación Flask para mostrar investigación sobre 4 casos de uso de Machine Learning Supervisado. Te ayudo paso a paso.
+
+Paso 1: requirements.txt
+requirements.txt
+Código 
+Instrucciones:
+
+Crea un archivo llamado requirements.txt en la carpeta raíz
+Copia el contenido del código anterior
+Guárdalo
+¿Ya tienes el requirements.txt listo? Ahora vamos con el archivo de datos de investigación.
+
+Paso 2: data/research_data.py
+data/research_data.py - Casos de Uso ML Supervisado
+Código 
+para que es Werkzeug
+
+Werkzeug es una biblioteca WSGI (Web Server Gateway Interface) para Python que es una dependencia fundamental de Flask. Te explico para qué sirve:
+
+¿Qué es Werkzeug?
+Biblioteca WSGI: Es el "motor" que permite que Flask funcione como servidor web
+Utilidades web: Proporciona herramientas para manejar HTTP requests, responses, cookies, etc.
+Desarrollo: Incluye el servidor de desarrollo que usas cuando ejecutas flask run o python app.py
+¿Por qué lo necesitamos?
+Flask depende de Werkzeug: Flask está construido sobre Werkzeug
+Servidor de desarrollo: Te permite probar tu aplicación localmente
+Manejo de HTTP: Gestiona las peticiones y respuestas web
+Debugging: Proporciona herramientas de depuración útiles
+En nuestro proyecto:
+Cuando ejecutes:
+
+python
+if __name__ == '__main__':
+    app.run(debug=True)
+Werkzeug es lo que realmente ejecuta tu aplicación Flask en http://localhost:5000
+
+¿Tienes el requirements.txt listo? Si es así, continuamos con el siguiente archivo (los datos de investigación de ML). Si quieres que simplifique y solo use Flask, también podemos hacerlo.
+
+
+data/research_data.py esto lo deje como busqueda.py
+
+Perfecto, usaremos busqueda.py entonces. Continuemos creando el archivo con los datos de investigación de Machine Learning Supervisado.
+
+Paso 2: data/busqueda.py
+data/busqueda.py - Casos de Uso ML Supervisado
+Código 
+Instrucciones para busqueda.py:
+
+Ve a la carpeta data/ de tu proyecto
+Crea un archivo llamado busqueda.py
+Copia todo el contenido del código anterior
+Guarda el archivo
+Este archivo contiene:
+
+✅ Información general de la investigación
+✅ 4 casos de uso detallados de ML Supervisado
+✅ Algoritmos, datasets y métricas para cada caso
+✅ Aplicaciones, beneficios y desafíos
+¿Ya tienes el archivo data/busqueda.py creado? Cuando esté listo, continuamos con el archivo principal app.py.
+
+listo ya los tengo
+
+¡Perfecto! Ahora vamos con el archivo principal de Flask.
+
+Paso 3: app.py
+app.py - Aplicación Principal Flask
+Código 
+Instrucciones para app.py:
+
+Crea un archivo llamado app.py en la carpeta raíz del proyecto
+Copia todo el contenido del código anterior
+Guarda el archivo
+Este archivo incluye:
+
+✅ Importación de los datos desde data/busqueda.py
+✅ 4 rutas principales: inicio, casos, detalle individual, metodología
+✅ Uso de render_template() para mostrar las páginas HTML
+✅ Manejo de errores 404
+✅ Configuración para ejecutar en modo debug
+Las rutas que tendremos son:
+
+/ - Página principal
+/casos - Todos los casos de uso
+/caso/1, /caso/2, etc. - Detalle de cada caso
+/metodologia - Información sobre la investigación
+¿Ya tienes el app.py listo? Ahora vamos a crear el primer template HTML.
+
+listo el app.py
+
+¡Excelente! Ahora vamos a crear los templates HTML. Empezaremos con la plantilla base que usarán todas las demás páginas.
+
+Paso 4: templates/base.html
+templates/base.html - Plantilla Base
+Artefacto interactivo 
+Instrucciones para base.html:
+
+Ve a la carpeta templates/ de tu proyecto
+Crea un archivo llamado base.html
+Copia todo el contenido del código anterior
+Guarda el archivo
+Esta plantilla base incluye:
+
+✅ Navegación con las 3 páginas principales
+✅ Enlaces a CSS y Font Awesome para iconos
+✅ Footer con enlaces a los casos específicos
+✅ Estructura responsive con menú hamburguesa
+✅ Bloque {% block content %} donde se insertará el contenido de cada página
+¿Ya tienes el templates/base.html creado? Ahora vamos con la página de inicio.
+
+listo el base.html
+
+¡Perfecto! Ahora vamos a crear la página de inicio que mostrará un resumen de la investigación.
+
+Paso 5: templates/index.html
+templates/index.html - Página Principal
+Artefacto interactivo 
+Instrucciones para index.html:
+
+Ve a la carpeta templates/ de tu proyecto
+Crea un archivo llamado index.html
+Copia todo el contenido del código anterior
+Guarda el archivo
+Esta página de inicio incluye:
+
+✅ Sección hero con título y descripción de la investigación
+✅ Estadísticas del estudio usando los datos de metrics
+✅ Preview de 2 casos de uso destacados
+✅ Palabras clave de la investigación
+✅ Resumen de la metodología con pasos visuales
+✅ Navegación a las otras secciones
+¿Ya tienes el templates/index.html listo? Ahora vamos con la página que mostrará todos los casos de uso.
+
+usalo para que se vea como si hasta ahora se estuviera aprendiendo a crear por que nunca se habia usado ese "hero"
+
+Tienes razón, vamos a simplificar y crear una versión más básica para alguien que está aprendiendo Flask. Empecemos desde lo más simple.
+
+Paso 5: templates/index.html (Versión Simple)
+templates/index.html - Página Principal
+Artefacto interactivo ∙ Versión 2 
+Instrucciones para index.html:
+
+Ve a la carpeta templates/ de tu proyecto
+Crea un archivo llamado index.html
+Copia todo el contenido del código anterior
+Guarda el archivo
+Esta versión es mucho más simple y básica:
+
+✅ Usa divs simples en lugar de secciones complejas
+✅ No usa "hero" ni términos avanzados
+✅ Estructura más directa y fácil de entender
+✅ Muestra los datos usando Jinja2 de forma básica
+✅ Navegación simple con botones
+¿Ya tienes el templates/index.html listo? Ahora vamos con la página de casos de uso de forma igual de simple.
+
+listo el index
+
+¡Perfecto! Ahora vamos a crear la página que mostrará todos los casos de uso de forma simple.
+
+Paso 6: templates/casos.html
+Creando artefacto...
+ 
+
+
+
+
 {% extends "base.html" %}
 
 {% block content %}
