@@ -1,0 +1,98 @@
+{% extends "base.html" %}
+
+{% block content %}
+<!-- Sección principal con título -->
+<div class="main-header">
+    <div class="container">
+        <h1>{{ research.title }}</h1>
+        <p>{{ research.subtitle }}</p>
+    </div>
+</div>
+
+<!-- Descripción de la investigación -->
+<div class="research-intro">
+    <div class="container">
+        <h2>Descripción del Proyecto</h2>
+        <p>{{ research.abstract }}</p>
+        
+        <!-- Botones para navegar -->
+        <div class="navigation-buttons">
+            <a href="{{ url_for('casos') }}" class="btn btn-primary">
+                Ver Casos de Uso
+            </a>
+            <a href="{{ url_for('metodologia') }}" class="btn btn-secondary">
+                Ver Metodología
+            </a>
+        </div>
+    </div>
+</div>
+
+<!-- Números importantes del estudio -->
+<div class="study-numbers">
+    <div class="container">
+        <h2>Datos del Estudio</h2>
+        <div class="numbers-grid">
+            <div class="number-box">
+                <h3>{{ metrics.total_cases }}</h3>
+                <p>Casos de Uso</p>
+            </div>
+            <div class="number-box">
+                <h3>{{ metrics.algorithms_analyzed }}</h3>
+                <p>Algoritmos</p>
+            </div>
+            <div class="number-box">
+                <h3>{{ metrics.datasets_reviewed }}</h3>
+                <p>Datasets</p>
+            </div>
+            <div class="number-box">
+                <h3>{{ metrics.avg_accuracy }}</h3>
+                <p>Precisión Promedio</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Muestra de 2 casos de uso -->
+<div class="featured-cases">
+    <div class="container">
+        <h2>Casos de Uso Principales</h2>
+        
+        {% for case in use_cases %}
+        <div class="case-box">
+            <h3>{{ case.id }}. {{ case.title }}</h3>
+            <p><strong>Categoría:</strong> {{ case.category }}</p>
+            <p>{{ case.description }}</p>
+            
+            <div class="case-info">
+                <p><strong>Tipo de algoritmo:</strong> {{ case.algorithm_type }}</p>
+                <p><strong>Precisión:</strong> {{ case.accuracy }}</p>
+            </div>
+            
+            <a href="{{ url_for('caso_detalle', caso_id=case.id) }}" class="btn btn-outline">
+                Ver más detalles
+            </a>
+        </div>
+        {% endfor %}
+        
+        <!-- Enlace para ver todos -->
+        <div class="view-all">
+            <a href="{{ url_for('casos') }}" class="btn btn-primary">
+                Ver todos los casos de uso
+            </a>
+        </div>
+    </div>
+</div>
+
+<!-- Palabras clave simples -->
+<div class="keywords-simple">
+    <div class="container">
+        <h3>Palabras Clave:</h3>
+        <p>
+            {% for keyword in research.keywords %}
+                <span class="keyword-tag">{{ keyword }}</span>
+                {% if not loop.last %} • {% endif %}
+            {% endfor %}
+        </p>
+    </div>
+</div>
+{% endblock %}
