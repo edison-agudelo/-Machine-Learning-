@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Regresión Lineal</title>}">
+</head>
+<body>
+    <h1>Regresión Lineal</h1>
+    <form method="POST">
+        <label for="hours">Horas de estudio:</label>
+        <input type="number" name="hours" required>
+        <button type="submit">predecir</button>
+        {% if result is not none%}
+        <h2> calificacion estimada: {{result}}</h2>
+        {% end if %}
+    </form>
+ </body> 
+</html>

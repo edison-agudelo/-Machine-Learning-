@@ -1,5 +1,6 @@
-from flask import Flask, render_template
+from flask import Flask, render_template, request
 from data.busqueda import research_info, ml_use_cases, team_info, study_metrics
+import modelo
 
 app = Flask(__name__)
 
@@ -54,3 +55,13 @@ def not_found(error):
 
 if __name__ == '__main__':
     app.run(debug=True, host='0.0.0.0', port=5000)
+
+@app.route('/RL', methods=['GET', 'POST'])
+def RL():
+    calculate_Result = None
+    if request.method == 'POST':
+        wait_time = float(request.form['wait_time'])
+        service_quality = float(request.form['service_quality'])
+        calculate_Result = modelo.predict_satisfaction(wait_time, service_quality)
+
+    return render_template('rl.html', result=calculate_Result)
