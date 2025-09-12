@@ -41,6 +41,27 @@
                 <i class="fas fa-microscope"></i> Metodología
               </a>
             </li>
+
+            <!-- 🔹 Nuevo menú desplegable Regresión Lineal -->
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle {% if request.endpoint in ['conceptos', 'RL'] %}active{% endif %}" 
+                 href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                <i class="fas fa-chart-line"></i> Regresión Lineal
+              </a>
+              <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                <li>
+                  <a class="dropdown-item {% if request.endpoint == 'conceptos' %}active{% endif %}" href="{{ url_for('conceptos') }}">
+                    Conceptos básicos
+                  </a>
+                </li>
+                <li>
+                  <a class="dropdown-item {% if request.endpoint == 'RL' %}active{% endif %}" href="{{ url_for('RL') }}">
+                    Ejercicio práctico
+                  </a>
+                </li>
+              </ul>
+            </li>
+            <!-- 🔹 Fin nuevo menú -->
           </ul>
         </div>
       </div>

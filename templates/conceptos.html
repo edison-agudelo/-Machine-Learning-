@@ -1,0 +1,61 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container p-4 bg-light">
+  <h1>Conceptos básicos de Regresión Lineal</h1>
+
+  <p>
+    La <strong>regresión lineal</strong> es un método estadístico utilizado para modelar la relación
+    entre una variable dependiente y una o más variables independientes mediante el ajuste de una línea
+    recta que minimiza las diferencias entre los valores observados y los predichos. Esta técnica se
+    aplica para <strong>predecir, analizar y comprender</strong> cómo las variables independientes
+    influyen sobre la variable dependiente (Wikipedia, 2025).
+  </p>
+
+  <h4>Tipos de regresión lineal</h4>
+  <ul>
+    <li>
+      <strong>Regresión lineal simple:</strong> Involucra una sola variable independiente y una variable
+      dependiente. La relación se representa mediante una ecuación lineal:
+      <br>
+      <em>y = β₀ + β₁x + ε</em>, donde <em>y</em> es la variable dependiente, <em>x</em> la independiente,
+      <em>β₀</em> el intercepto, <em>β₁</em> la pendiente y <em>ε</em> el término de error.
+    </li>
+    <li>
+      <strong>Regresión lineal múltiple:</strong> Implica dos o más variables independientes para predecir
+      la variable dependiente. La ecuación general es:
+      <br>
+      <em>y = β₀ + β₁x₁ + β₂x₂ + ... + βₙxₙ + ε</em>, donde cada <em>βᵢ</em> representa la influencia de
+      la variable independiente <em>xᵢ</em> sobre <em>y</em>.
+    </li>
+  </ul>
+
+  <h4>Supuestos principales</h4>
+  <ul>
+    <li><strong>Linealidad:</strong> La relación entre las variables independientes y dependientes es aproximadamente lineal.</li>
+    <li><strong>Independencia:</strong> Los errores del modelo (residuos) son independientes entre sí.</li>
+    <li><strong>Homoscedasticidad:</strong> La varianza de los errores es constante.</li>
+    <li><strong>Normalidad:</strong> Los errores se distribuyen normalmente.</li>
+  </ul>
+
+  <h4>Aplicaciones comunes</h4>
+  <ul>
+    <li>Predicción de ventas en función de publicidad o tiempo.</li>
+    <li>Estimación del rendimiento académico según horas de estudio.</li>
+    <li>Análisis de riesgos financieros y modelos de inversión.</li>
+    <li>Estudios de satisfacción de clientes según factores de servicio.</li>
+  </ul>
+
+  <h4>Gráfico de ejemplo</h4>
+  {% if plot_conceptos %}
+  <img src="{{ plot_conceptos }}" class="img-fluid rounded shadow" alt="Ejemplo de regresión lineal">
+  {% endif %}
+
+  <h4>Referencia</h4>
+  <p>
+    Wikipedia. (2025). <em>Regresión lineal</em>. En <em>Wikipedia</em>. Recuperado de
+    <a href="https://es.wikipedia.org/wiki/Regresi%C3%B3n_lineal" target="_blank">
+    https://es.wikipedia.org/wiki/Regresi%C3%B3n_lineal</a>
+  </p>
+</div>
+{% endblock %}

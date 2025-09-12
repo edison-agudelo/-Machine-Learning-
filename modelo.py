@@ -1,97 +1,87 @@
 import pandas as pd
 import numpy as np
-import matplotlib.pyplot as plt
-import io, base64
 from sklearn.linear_model import LinearRegression
 from sklearn.metrics import mean_squared_error, r2_score
+import matplotlib.pyplot as plt
+import io, base64
 
-# ===============================
-# 1. Cargar dataset
-# ===============================
-def cargar_datos():
-    try:
-        df = pd.read_csv("data/clientes.csv")  # Ruta a tu dataset
-    except FileNotFoundError:
-        # Generar dataset ficticio si no existe el archivo
-        np.random.seed(42)
-        df = pd.DataFrame({
-            "tiempo_espera": np.random.randint(1, 60, 50),   # minutos
-            "calidad_servicio": np.random.randint(1, 11, 50), # 1 a 10
-        })
-        df["satisfaccion"] = (
-            10 - 0.1*df["tiempo_espera"] + 0.5*df["calidad_servicio"] 
-            + np.random.normal(0, 1, 50)
-        )
-        df.to_csv("data/clientes.csv", index=False)
-    return df
+# Dataset de ejemplo
+df = pd.DataFrame({
+    "tiempo": [5, 10, 15, 20, 25],
+    "calidad": [7, 8, 5, 6, 9],
+    "satisfaccion": [8, 7, 6, 7, 8]
+})
 
-# ===============================
-# 2. Entrenar modelo
-# ===============================
-def entrenar_modelo(df):
-    X = df[["tiempo_espera", "calidad_servicio"]]
-    y = df["satisfaccion"]
+# Entrenar modelo
+X = df[["tiempo", "calidad"]]
+y = df["satisfaccion"]
+model = LinearRegression()
+model.fit(X, y)
 
-    modelo = LinearRegression()
-    modelo.fit(X, y)
+# Métricas
+preds = model.predict(X)
+metrics = {
+    "rmse": mean_squared_error(y, preds) ** 0.5,
+    "r2": r2_score(y, preds)
+}
 
-    predicciones = modelo.predict(X)
+def ejecutar_modelo(tiempo=None, calidad=None):
+    prediccion = None
+    plot_df = df.copy()
 
-    # Calcular métricas
-    rmse = np.sqrt(mean_squared_error(y, predicciones))
-    r2 = r2_score(y, predicciones)
+    if tiempo is not None and calidad is not None:
+        prediccion = model.predict(np.array([[tiempo, calidad]]))[0]
+        plot_df = pd.concat([plot_df, pd.DataFrame({"tiempo":[tiempo], "calidad":[calidad], "satisfaccion":[prediccion]})], ignore_index=True)
 
-    metrics = {"rmse": rmse, "r2": r2}
+    plt.figure(figsize=(6,4))
+    # colores: rojo para la predicción nueva, azul para los demás
+    colors = ['red' if tiempo is not None and calidad is not None and i == len(plot_df)-1 else 'blue' for i in range(len(plot_df))]
+    plt.scatter(plot_df["tiempo"], plot_df["satisfaccion"], c=colors)
 
-    return modelo, metrics, predicciones
+    # línea de regresión con todos los puntos (incluyendo predicción)
+    X_plot = plot_df[["tiempo"]]
+    y_plot = plot_df["satisfaccion"]
+    coef = np.polyfit(X_plot["tiempo"], y_plot, 1)
+    y_fit = np.polyval(coef, X_plot["tiempo"])
+    plt.plot(X_plot["tiempo"], y_fit, color="green", label="Línea de regresión")
 
-# ===============================
-# 3. Generar gráfico
-# ===============================
-def generar_grafico(df, predicciones):
-    plt.figure(figsize=(6, 4))
-    scatter = plt.scatter(
-        df["tiempo_espera"], 
-        df["satisfaccion"], 
-        c=df["calidad_servicio"], cmap="viridis", s=60
-    )
-    plt.colorbar(scatter, label="Calidad del servicio")
-    plt.plot(df["tiempo_espera"], predicciones, color="red", linewidth=2)
-    plt.xlabel("Tiempo de espera (min)")
+    plt.xlabel("Tiempo de espera")
     plt.ylabel("Satisfacción")
-    plt.title("Regresión lineal: satisfacción de clientes")
+    plt.title("Regresión Lineal")
+    plt.legend()
 
-    # Convertir a base64 para mostrar en HTML
     buf = io.BytesIO()
-    plt.tight_layout()
     plt.savefig(buf, format="png")
     buf.seek(0)
-    plot_url = base64.b64encode(buf.getvalue()).decode("utf-8")
+    plot_url = "data:image/png;base64," + base64.b64encode(buf.read()).decode()
     plt.close()
-    return f"data:image/png;base64,{plot_url}"
 
-# ===============================
-# 4. Predicción individual
-# ===============================
-def predecir(modelo, tiempo, calidad):
-    X_nuevo = np.array([[tiempo, calidad]])
-    return modelo.predict(X_nuevo)[0]
-
-# ===============================
-# 5. Función principal
-# ===============================
-def ejecutar_modelo(tiempo=None, calidad=None):
-    df = cargar_datos()
-    modelo, metrics, predicciones = entrenar_modelo(df)
-    plot_url = generar_grafico(df, predicciones)
-
-    prediccion = None
-    if tiempo is not None and calidad is not None:
-        prediccion = predecir(modelo, tiempo, calidad)
+    data_html = plot_df.to_html(classes="table table-striped", index=False)
 
     return {
+        "prediccion": prediccion,
         "metrics": metrics,
         "plot_url": plot_url,
-        "prediccion": prediccion,
-        "data": df.head().to_html(classes="table table-striped", index=False)
+        "data": data_html
     }
+
+def generar_conceptos():
+    df_plot = pd.DataFrame({"tiempo": [5, 10, 15, 20, 25], "satisfaccion": [8, 7, 6, 7, 8]})
+    coef = np.polyfit(df_plot["tiempo"], df_plot["satisfaccion"], 1)
+    y_fit = np.polyval(coef, df_plot["tiempo"])
+
+    plt.figure(figsize=(6,4))
+    plt.scatter(df_plot["tiempo"], df_plot["satisfaccion"], color="blue")
+    plt.plot(df_plot["tiempo"], y_fit, color="red")
+    plt.xlabel("Tiempo de espera")
+    plt.ylabel("Satisfacción")
+    plt.title("Ejemplo de regresión lineal")
+
+    buf = io.BytesIO()
+    plt.savefig(buf, format="png")
+    buf.seek(0)
+    plot_data = base64.b64encode(buf.read()).decode("ascii")
+    plt.close()
+    plot_conceptos = f"data:image/png;base64,{plot_data}"
+
+    return {"plot_conceptos": plot_conceptos}
