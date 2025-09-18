@@ -1,0 +1,139 @@
+{% extends "base.html" %}
+
+{% block content %}
+<!-- Título de la página -->
+<div class="page-title">
+    <div class="container">
+        <h1>Casos de Uso de Machine Learning Supervisado</h1>
+        <p>Análisis detallado de 4 aplicaciones prácticas</p>
+    </div>
+</div>
+
+<!-- Lista de todos los casos -->
+<div class="all-cases">
+    <div class="container">
+        
+        {% for case in use_cases %}
+        <div class="case-complete">
+            <div class="case-header-simple">
+                <h2>{{ case.id }}. {{ case.title }}</h2>
+                <span class="category-badge">{{ case.category }}</span>
+            </div>
+            
+            <!-- Descripción -->
+            <div class="case-description">
+                <h3>Descripción</h3>
+                <p>{{ case.description }}</p>
+            </div>
+            
+            <!-- Información técnica -->
+            <div class="technical-info">
+                <div class="info-row">
+                    <div class="info-item">
+                        <strong>Tipo de Algoritmo:</strong>
+                        <span>{{ case.algorithm_type }}</span>
+                    </div>
+                    <div class="info-item">
+                        <strong>Precisión:</strong>
+                        <span class="accuracy-highlight">{{ case.accuracy }}</span>
+                    </div>
+                </div>
+                
+                <div class="info-row">
+                    <div class="info-item">
+                        <strong>Dataset de Ejemplo:</strong>
+                        <span>{{ case.dataset_example }}</span>
+                    </div>
+                    <div class="info-item">
+                        <strong>Tamaño:</strong>
+                        <span>{{ case.dataset_size }}</span>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Algoritmos utilizados -->
+            <div class="algorithms-section">
+                <h4>Algoritmos Utilizados:</h4>
+                <ul class="algorithms-list">
+                    {% for algorithm in case.algorithms_used %}
+                    <li>{{ algorithm }}</li>
+                    {% endfor %}
+                </ul>
+            </div>
+            
+            <!-- Aplicaciones -->
+            <div class="applications-section">
+                <h4>Aplicaciones Principales:</h4>
+                <ul class="applications-list">
+                    {% for application in case.applications %}
+                    <li>{{ application }}</li>
+                    {% endfor %}
+                </ul>
+            </div>
+            
+            <!-- Beneficios -->
+            <div class="benefits-section">
+                <h4>Beneficios:</h4>
+                <ul class="benefits-list">
+                    {% for benefit in case.benefits %}
+                    <li>✅ {{ benefit }}</li>
+                    {% endfor %}
+                </ul>
+            </div>
+            
+            <!-- Desafíos -->
+            <div class="challenges-section">
+                <h4>Desafíos:</h4>
+                <ul class="challenges-list">
+                    {% for challenge in case.challenges %}
+                    <li>⚠️ {{ challenge }}</li>
+                    {% endfor %}
+                </ul>
+            </div>
+            
+            <!-- Botón para ver detalles -->
+            <div class="case-action">
+                <a href="{{ url_for('caso_detalle', caso_id=case.id) }}" class="btn btn-primary">
+                    Ver caso completo
+                </a>
+            </div>
+        </div>
+        
+        <!-- Línea separadora (excepto en el último) -->
+        {% if not loop.last %}
+        <hr class="case-separator">
+        {% endif %}
+        
+        {% endfor %}
+    </div>
+</div>
+
+<!-- Resumen al final -->
+<div class="cases-summary">
+    <div class="container">
+        <h2>Resumen de la Investigación</h2>
+        <p>Hemos analizado {{ metrics.total_cases }} casos de uso diferentes que demuestran la versatilidad del Machine Learning Supervisado en diversas industrias.</p>
+        
+        <div class="summary-stats">
+            <div class="summary-item">
+                <strong>{{ metrics.industries_covered }}</strong> industrias cubiertas
+            </div>
+            <div class="summary-item">
+                <strong>{{ metrics.algorithms_analyzed }}</strong> algoritmos analizados
+            </div>
+            <div class="summary-item">
+                <strong>{{ metrics.papers_reviewed }}</strong> papers revisados
+            </div>
+        </div>
+        
+        <div class="back-navigation">
+            <a href="{{ url_for('index') }}" class="btn btn-secondary">
+                Volver al inicio
+            </a>
+            <a href="{{ url_for('metodologia') }}" class="btn btn-outline">
+                Ver metodología
+            </a>
+        </div>
+    </div>
+</div>
+{% endblock %}

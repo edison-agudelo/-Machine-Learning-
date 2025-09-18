@@ -1,0 +1,178 @@
+{% extends "base.html" %}
+
+{% block content %}
+<!-- Cabecera del caso específico -->
+<div class="case-detail-header">
+    <div class="container">
+        <div class="breadcrumb">
+            <a href="{{ url_for('index') }}">Inicio</a> > 
+            <a href="{{ url_for('casos') }}">Casos de Uso</a> > 
+            <span>Caso {{ caso.id }}</span>
+        </div>
+        
+        <h1>{{ caso.title }}</h1>
+        <p class="case-category-large">{{ caso.category }}</p>
+        <p class="case-description-main">{{ caso.description }}</p>
+    </div>
+</div>
+
+<!-- Información técnica destacada -->
+<div class="technical-highlight">
+    <div class="container">
+        <div class="tech-grid">
+            <div class="tech-item">
+                <h3>Tipo de Algoritmo</h3>
+                <p>{{ caso.algorithm_type }}</p>
+            </div>
+            <div class="tech-item">
+                <h3>Precisión Lograda</h3>
+                <p class="accuracy-big">{{ caso.accuracy }}</p>
+            </div>
+            <div class="tech-item">
+                <h3>Dataset Principal</h3>
+                <p>{{ caso.dataset_example }}</p>
+            </div>
+            <div class="tech-item">
+                <h3>Tamaño del Dataset</h3>
+                <p>{{ caso.dataset_size }}</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Algoritmos utilizados -->
+<div class="algorithms-detail">
+    <div class="container">
+        <h2>Algoritmos Utilizados</h2>
+        <p>Para este caso de uso se han implementado y evaluado los siguientes algoritmos de Machine Learning:</p>
+        
+        <div class="algorithms-grid">
+            {% for algorithm in caso.algorithms_used %}
+            <div class="algorithm-card">
+                <h4>{{ loop.index }}. {{ algorithm }}</h4>
+                <p>Algoritmo utilizado en la implementación de {{ caso.title|lower }}</p>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+
+<!-- Aplicaciones prácticas -->
+<div class="applications-detail">
+    <div class="container">
+        <h2>Aplicaciones Prácticas</h2>
+        <p>Este caso de uso tiene múltiples aplicaciones en el mundo real:</p>
+        
+        <div class="applications-detailed">
+            {% for application in caso.applications %}
+            <div class="application-item">
+                <div class="application-number">{{ loop.index }}</div>
+                <div class="application-content">
+                    <h4>{{ application }}</h4>
+                    <p>Aplicación práctica en el contexto de {{ caso.category|lower }}</p>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+
+<!-- Beneficios y ventajas -->
+<div class="benefits-detail">
+    <div class="container">
+        <h2>Beneficios y Ventajas</h2>
+        <p>La implementación de este caso de uso ofrece los siguientes beneficios:</p>
+        
+        <div class="benefits-detailed">
+            {% for benefit in caso.benefits %}
+            <div class="benefit-item">
+                <div class="benefit-icon">✅</div>
+                <div class="benefit-text">
+                    <h4>Beneficio {{ loop.index }}</h4>
+                    <p>{{ benefit }}</p>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+
+<!-- Desafíos y limitaciones -->
+<div class="challenges-detail">
+    <div class="container">
+        <h2>Desafíos y Limitaciones</h2>
+        <p>Como cualquier implementación de ML, este caso presenta ciertos desafíos:</p>
+        
+        <div class="challenges-detailed">
+            {% for challenge in caso.challenges %}
+            <div class="challenge-item">
+                <div class="challenge-icon">⚠️</div>
+                <div class="challenge-text">
+                    <h4>Desafío {{ loop.index }}</h4>
+                    <p>{{ challenge }}</p>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+
+<!-- Conclusión del caso -->
+<div class="case-conclusion">
+    <div class="container">
+        <h2>Conclusión</h2>
+        <div class="conclusion-content">
+            <p>El caso de uso <strong>{{ caso.title }}</strong> en el área de <strong>{{ caso.category }}</strong> 
+            demuestra la efectividad del Machine Learning Supervisado para resolver problemas complejos.</p>
+            
+            <p>Con una precisión de <strong>{{ caso.accuracy }}</strong> y utilizando algoritmos como 
+            <strong>{{ caso.algorithms_used[0] }}</strong>, este caso representa una aplicación exitosa 
+            de técnicas de {{ caso.algorithm_type|lower }} en el mundo real.</p>
+            
+            <div class="key-takeaways">
+                <h4>Puntos Clave:</h4>
+                <ul>
+                    <li>Precisión lograda: {{ caso.accuracy }}</li>
+                    <li>Algoritmos implementados: {{ caso.algorithms_used|length }}</li>
+                    <li>Aplicaciones identificadas: {{ caso.applications|length }}</li>
+                    <li>Beneficios documentados: {{ caso.benefits|length }}</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Navegación entre casos -->
+<div class="case-navigation">
+    <div class="container">
+        <h3>Explorar Otros Casos</h3>
+        <div class="nav-cases">
+            {% if caso.id > 1 %}
+            <a href="{{ url_for('caso_detalle', caso_id=caso.id-1) }}" class="btn btn-secondary">
+                ← Caso Anterior
+            </a>
+            {% endif %}
+            
+            <a href="{{ url_for('casos') }}" class="btn btn-primary">
+                Ver Todos los Casos
+            </a>
+            
+            {% if caso.id < 4 %}
+            <a href="{{ url_for('caso_detalle', caso_id=caso.id+1) }}" class="btn btn-secondary">
+                Caso Siguiente →
+            </a>
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% endblock %}
+                <ul>
+                    <li><a href="https://flask.palletsprojects.com/" target="_blank">Flask Documentation</a></li>
+                    <li><a href="https://scikit-learn.org/stable/" target="_blank">Scikit-Learn</a></li>
+                    <li><a href="https://pandas.pydata.org/" target="_blank">Pandas</a></li>
+                    <li><a href="https://numpy.org/" target="_blank">NumPy</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>Contacto</h3>
+                <p><i class="fas fa-envelope"></i>

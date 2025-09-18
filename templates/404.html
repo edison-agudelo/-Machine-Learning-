@@ -1,0 +1,125 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="error-page">
+    <div class="container">
+        <div class="error-content">
+            <h1 class="error-title">404</h1>
+            <h2 class="error-subtitle">Página No Encontrada</h2>
+            <p class="error-message">
+                Lo sentimos, la página que buscas no existe o ha sido movida.
+            </p>
+            
+            <div class="error-suggestions">
+                <h3>¿Qué puedes hacer?</h3>
+                <ul>
+                    <li>Verifica que la URL esté escrita correctamente</li>
+                    <li>Regresa a la página principal</li>
+                    <li>Explora nuestros casos de uso</li>
+                    <li>Revisa la metodología de investigación</li>
+                </ul>
+            </div>
+            
+            <div class="error-navigation">
+                <a href="{{ url_for('index') }}" class="btn btn-primary">
+                    <i class="fas fa-home"></i> Ir al Inicio
+                </a>
+                <a href="{{ url_for('casos') }}" class="btn btn-secondary">
+                    <i class="fas fa-list"></i> Ver Casos de Uso
+                </a>
+            </div>
+        </div>
+        
+        <div class="error-visual">
+            <i class="fas fa-robot error-icon"></i>
+        </div>
+    </div>
+</div>
+
+<style>
+.error-page {
+    min-height: 70vh;
+    display: flex;
+    align-items: center;
+    padding: 60px 0;
+}
+
+.error-page .container {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 60px;
+    align-items: center;
+}
+
+.error-title {
+    font-size: 8rem;
+    color: #007bff;
+    margin: 0;
+    font-weight: bold;
+}
+
+.error-subtitle {
+    color: #333;
+    margin-bottom: 20px;
+}
+
+.error-message {
+    font-size: 1.2rem;
+    color: #666;
+    margin-bottom: 30px;
+}
+
+.error-suggestions {
+    background: #f8f9fa;
+    padding: 30px;
+    border-radius: 8px;
+    margin-bottom: 30px;
+    border-left: 4px solid #007bff;
+}
+
+.error-suggestions h3 {
+    color: #007bff;
+    margin-bottom: 15px;
+}
+
+.error-suggestions ul {
+    margin-left: 20px;
+}
+
+.error-suggestions li {
+    margin-bottom: 8px;
+    color: #555;
+}
+
+.error-navigation .btn {
+    margin-right: 15px;
+    margin-bottom: 10px;
+}
+
+.error-visual {
+    text-align: center;
+}
+
+.error-icon {
+    font-size: 12rem;
+    color: #dee2e6;
+    opacity: 0.5;
+}
+
+@media (max-width: 768px) {
+    .error-page .container {
+        grid-template-columns: 1fr;
+        text-align: center;
+        gap: 40px;
+    }
+    
+    .error-title {
+        font-size: 6rem;
+    }
+    
+    .error-icon {
+        font-size: 8rem;
+    }
+}
+</style>
+{% endblock %}
