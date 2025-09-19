@@ -7,54 +7,52 @@ from sklearn.preprocessing import StandardScaler
 from sklearn.linear_model import LogisticRegression
 from sklearn.metrics import confusion_matrix, accuracy_score, classification_report
 
-#cargar los datos desde un archivo csv
-data = pd.read_csv('dataset\data.csv')
+# Cargar los datos desde un archivo CSV
+data = pd.read_csv('dataset/data.csv')
 
+# Explorar el conjunto de datos 
+print(data.head())       # Ver primeras filas
+print(data.info())       # Info general del dataset
+print(data.describe())   # Estadísticas descriptivas
+print(data.columns)      # Nombres de todas las columnas
 
-#explorar el conjunto de datos 
-print(data.head()) # Para ver las primeras filas
-print(data.info())
-print(data.describe())     
-print(data.columns)     # Para ver los nombres de todas las columnas
-
-
-#separar las variables independientes (x) y la dependiente(y)
-x = data.drop ('HeartDisease', axis=1) #supon que 'target es la columna de eqtiueta/clase
+# Separar variables independientes (X) y dependiente (y)
+X = data.drop('HeartDisease', axis=1)   # Cambié a mayúscula por convención
 y = data['HeartDisease']
 
-#dividir el datashet en conjunto de entrenamiento y prueba (80% entrenamiento, 20prueba)
+# Dividir el dataset en entrenamiento (80%) y prueba (20%)
+X_train, X_test, y_train, y_test = train_test_split(
+    X, y, test_size=0.2, random_state=42
+)
 
-x_train, x_test, y_train, y_test = train_test_split(x,y,test_size=0.2, random_state=42) 
-
-#estandarizar los datos (opcional pero recomendable para regresion logistica)
-
+# Estandarizar los datos (muy recomendable para regresión logística)
 scaler = StandardScaler()
-x_train_scaled = scaler.fit_trasnform(x_train)
-x_test_sacled = scaler.transform(x_test)
+X_train_scaled = scaler.fit_transform(X_train)
+X_test_scaled = scaler.transform(X_test)
 
-#crear el modelo de regresion logistica
+# Crear el modelo de regresión logística
 logistic_model = LogisticRegression()
 
-#entrenar el modelo 
-logistic_model.fit(x_train_scaled, y_train)
+# Entrenar el modelo 
+logistic_model.fit(X_train_scaled, y_train)
 
-#realizar predicciones con el conjunto de prueba
-y_pred = logistic_model.predict(x_test_sacled)
+# Realizar predicciones con el conjunto de prueba
+y_pred = logistic_model.predict(X_test_scaled)
 
-#crear la matriz de connfuncion
+# Crear la matriz de confusión
 conf_matrix = confusion_matrix(y_test, y_pred)
 
-#visualizar la matriz de confunsion 
-plt.figure(figsize=(8,6))
-sns.heatmap(conf_matrix, annot=True, fmt='d', camp='blues', cbar=False)
-plt.xlabel('predicted')
-plt.ylabel('actual')
-plt.title('confunsion matrix')
+# Visualizar la matriz de confusión 
+plt.figure(figsize=(8, 6))
+sns.heatmap(conf_matrix, annot=True, fmt='d', cmap='Blues', cbar=False)
+plt.xlabel('Predicted')
+plt.ylabel('Actual')
+plt.title('Matriz de Confusión')
 plt.show()
 
-#implementar el reporte de clasificacion 
+# Reporte de clasificación 
 print(classification_report(y_test, y_pred))
 
-#imprimir la exactitud del modelo 
+# Imprimir la exactitud del modelo 
 accuracy = accuracy_score(y_test, y_pred)
-print(f'exactitud del modelo: {accuracy * 100: .2f}%')
+print(f'Exactitud del modelo: {accuracy * 100:.2f}%')
