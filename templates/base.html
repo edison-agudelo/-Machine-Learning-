@@ -42,13 +42,13 @@
               </a>
             </li>
 
-            <!--  Nuevo menú desplegable Regresión Lineal -->
+            <!-- Nuevo menú desplegable Regresión Lineal -->
             <li class="nav-item dropdown">
               <a class="nav-link dropdown-toggle {% if request.endpoint in ['conceptos', 'RL'] %}active{% endif %}" 
-                 href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                  href="#" id="navbarDropdownLineal" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                 <i class="fas fa-chart-line"></i> Regresión Lineal
               </a>
-              <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+              <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdownLineal">
                 <li>
                   <a class="dropdown-item {% if request.endpoint == 'conceptos' %}active{% endif %}" href="{{ url_for('conceptos') }}">
                     Conceptos básicos
@@ -61,7 +61,28 @@
                 </li>
               </ul>
             </li>
-            <!--  Fin nuevo menú -->
+            <!-- Fin nuevo menú -->
+
+            <!-- Nuevo menú desplegable Regresión Logística -->
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle {% if request.endpoint in ['regresion_conceptos', 'regresion_practico'] %}active{% endif %}" 
+                  href="#" id="navbarDropdownLogistica" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                <i class="fas fa-chart-pie"></i> Regresión Logística
+              </a>
+              <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdownLogistica">
+                <li>
+                  <a class="dropdown-item {% if request.endpoint == 'regresion_conceptos' %}active{% endif %}" href="{{ url_for('regresion_conceptos') }}">
+                    Conceptos básicos
+                  </a>
+                </li>
+                <li>
+                  <a class="dropdown-item {% if request.endpoint == 'regresion_practico' %}active{% endif %}" href="{{ url_for('regresion_practico') }}">
+                    Ejercicio práctico
+                  </a>
+                </li>
+              </ul>
+            </li>
+            <!-- Fin nuevo menú -->
           </ul>
         </div>
       </div>
