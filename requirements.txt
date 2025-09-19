@@ -5,3 +5,4 @@ pandas
 scikit-learn
 matplotlib
 ## pip install -r requirements.txt
+#.\.venv\Scripts\python.exe -m pip install seaborn

@@ -1,7 +1,7 @@
 from flask import Flask, render_template, request, jsonify
-import modelo 
+import modelo
 from data.busqueda import research_info, ml_use_cases, team_info, study_metrics
-import Regresion_logistica 
+import regresion_logistica  
 import numpy as np
 import traceback
 
@@ -23,7 +23,8 @@ def initialize_model():
     print("Entrenando el modelo de Regresión Logística...")
     global accuracy_global, report_global, cm_img_global
     try:
-        accuracy_global, report_global, cm_img_global = Regresion_logistica.train_and_evaluate_model()
+       
+        accuracy_global, report_global, cm_img_global = regresion_logistica.train_and_evaluate_model()
         print("Modelo entrenado y métricas generadas.")
         print(f"Accuracy obtenida: {accuracy_global}")
     except Exception as e:
@@ -170,14 +171,12 @@ def predict():
             if field not in request.form:
                 return jsonify(error=f"Campo requerido faltante: {field}"), 400
 
-        # IMPORTANTE: Mantener nivel_seguridad como texto, NO convertir a números
         nivel_seguridad_text = request.form['nivel_seguridad']
         valid_security_levels = ['Bajo', 'Medio', 'Alto']
         
         if nivel_seguridad_text not in valid_security_levels:
             return jsonify(error=f"Nivel de seguridad inválido: {nivel_seguridad_text}"), 400
         
-        # Preparar los datos de entrada
         try:
             horas_trabajadas = float(request.form['horas_trabajadas'])
             edad = float(request.form['edad'])
@@ -185,7 +184,6 @@ def predict():
         except ValueError as ve:
             return jsonify(error=f"Error en conversión de datos: {ve}"), 400
         
-        # Validaciones de rango
         if horas_trabajadas < 0 or horas_trabajadas > 24:
             return jsonify(error="Las horas trabajadas deben estar entre 0 y 24"), 400
         if edad < 16 or edad > 100:
@@ -193,17 +191,13 @@ def predict():
         if tiempo_puesto < 0:
             return jsonify(error="El tiempo en el puesto no puede ser negativo"), 400
         
-        # Crear los datos en el formato que espera predict_label:
-        # [horas_trabajadas, edad, tiempo_puesto, nivel_seguridad_texto]
         input_data = [horas_trabajadas, edad, tiempo_puesto, nivel_seguridad_text]
         
         print(f"Datos preparados para enviar: {input_data}")
         print(f"Tipos de datos: {[type(x) for x in input_data]}")
         
-        # Realizar la predicción
-        prediction, probability = Regresion_logistica.predict_label(input_data)
+        prediction, probability = regresion_logistica.predict_label(input_data)
         
-        # Formatear la respuesta
         response = {
             'prediction': str(prediction),
             'probability': f"{float(probability):.2f}",
@@ -230,7 +224,6 @@ def predict():
 
 @app.route('/health')
 def health_check():
-    """Endpoint para verificar el estado de la aplicación."""
     global accuracy_global
     return jsonify({
         'status': 'OK',
@@ -240,7 +233,6 @@ def health_check():
 
 @app.route('/model-info')
 def model_info():
-    """Endpoint para obtener información del modelo."""
     global accuracy_global, report_global
     return jsonify({
         'accuracy': accuracy_global,
@@ -271,14 +263,12 @@ def bad_request(error):
 if __name__ == '__main__':
     print("Iniciando aplicación Flask...")
     
-    # Inicializar el modelo antes de ejecutar la app
     initialize_model()
     
-    # Verificar si el modelo se inicializó correctamente
     if accuracy_global > 0:
-        print("✅ Modelo inicializado correctamente")
+        print(" Modelo inicializado correctamente")
     else:
-        print("⚠️  Advertencia: El modelo no se inicializó correctamente")
+        print("  Advertencia: El modelo no se inicializó correctamente")
     
-    print("🚀 Iniciando servidor Flask...")
+    print(" Iniciando servidor Flask...")
     app.run(debug=True, host='0.0.0.0', port=5000)
