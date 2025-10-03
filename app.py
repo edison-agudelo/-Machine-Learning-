@@ -65,15 +65,71 @@ def initialize_rf_model():
     try:
         # Verificar que existe el dataset
         csv_path = "data/rotacion_empleados.csv"
+        
         if not os.path.exists(csv_path):
             print(f"Dataset no encontrado en {csv_path}. Generando...")
-            # Importar y ejecutar el generador de dataset
+            
+            # Método 1: Intentar importar desde data.generate_dataset
             try:
-                from data import generate_dataset
-                print("Dataset generado exitosamente")
-            except Exception as gen_error:
-                print(f"Error al generar dataset: {gen_error}")
-                return
+                import importlib.util
+                generate_dataset_path = os.path.join(os.path.dirname(__file__), 'data', 'generate_dataset.py')
+                spec = importlib.util.spec_from_file_location("generate_dataset", generate_dataset_path)
+                generate_dataset_module = importlib.util.module_from_spec(spec)
+                spec.loader.exec_module(generate_dataset_module)
+                generate_dataset_module.generar_dataset()
+                print("Dataset generado exitosamente (método 1)")
+            except Exception as e1:
+                print(f"Método 1 falló: {e1}")
+                
+                # Método 2: Generar directamente aquí
+                try:
+                    print("Intentando generar dataset directamente...")
+                    import pandas as pd
+                    
+                    RND = 42
+                    np.random.seed(RND)
+                    
+                    os.makedirs("data", exist_ok=True)
+                    n = 1000
+                    
+                    anios_empresa = np.clip(np.round(np.random.exponential(scale=3.0, size=n), 1), 0, 40)
+                    nivel_satisfaccion = np.clip(np.round(np.random.normal(loc=0.6, scale=0.2, size=n), 3), 0, 1)
+                    salario = np.round(np.random.normal(loc=3000, scale=800, size=n), 2)
+                    n_capacitaciones = np.random.poisson(lam=2, size=n)
+                    eval_desempeno = np.clip(np.round(np.random.normal(loc=3.5, scale=0.8, size=n), 2), 1, 5)
+                    
+                    prob_base = (
+                        0.4 * (1 - nivel_satisfaccion) +
+                        0.2 * (1 / (1 + anios_empresa)) +
+                        0.15 * (1 - (eval_desempeno - 1) / 4) +
+                        0.1 * (1 - np.clip((salario - salario.min()) / (salario.max() - salario.min()), 0, 1)) +
+                        0.15 * (1 - (n_capacitaciones / (n_capacitaciones.max() + 1)))
+                    )
+                    prob_base = (prob_base - prob_base.min()) / (prob_base.max() - prob_base.min())
+                    prob_final = 0.85 * prob_base + 0.15 * np.random.rand(n)
+                    label = np.where(prob_final > np.quantile(prob_final, 0.6), "Alta", "Baja")
+                    
+                    df = pd.DataFrame({
+                        "empleado_id": np.arange(1, n + 1),
+                        "anios_empresa": anios_empresa,
+                        "nivel_satisfaccion": nivel_satisfaccion,
+                        "salario": salario,
+                        "n_capacitaciones": n_capacitaciones,
+                        "eval_desempeno": eval_desempeno,
+                        "rotacion": label
+                    })
+                    
+                    for col in ["nivel_satisfaccion", "salario", "eval_desempeno"]:
+                        mask = np.random.rand(n) < 0.05
+                        df.loc[mask, col] = np.nan
+                    
+                    df.to_csv(csv_path, index=False, encoding='utf-8')
+                    print(f"Dataset generado exitosamente en {csv_path} (método 2)")
+                    
+                except Exception as e2:
+                    print(f"Error al generar dataset (método 2): {e2}")
+                    traceback.print_exc()
+                    return
         
         # Entrenar y evaluar
         metrics, report, cm_path = random_forest_rotacion.train_and_evaluate_model(
@@ -83,12 +139,13 @@ def initialize_rf_model():
         
         rf_metrics_global = metrics
         rf_report_global = report
+        
         # Convertir path absoluto a relativo para templates
-        rf_cm_img_global = cm_path.replace('static/', '').replace('\\', '/')
+        rf_cm_img_global = cm_path.replace('static/', '').replace('static\\', '').replace('\\', '/')
         if rf_cm_img_global.startswith('/'):
             rf_cm_img_global = rf_cm_img_global[1:]
         
-        print(f"✓ Random Forest entrenado exitosamente")
+        print(f"Random Forest entrenado exitosamente")
         print(f"  - Accuracy: {metrics.get('accuracy', 'N/A')}")
         print(f"  - ROC-AUC: {metrics.get('roc_auc', 'N/A')}")
         
@@ -441,17 +498,17 @@ if __name__ == '__main__':
     print("\n[1/2] Inicializando Regresión Logística...")
     initialize_model()
     if accuracy_global > 0:
-        print("✓ Regresión Logística inicializada correctamente")
+        print("Regresión Logística inicializada correctamente")
     else:
-        print("⚠ Advertencia: Regresión Logística no se inicializó correctamente")
+        print("Advertencia: Regresión Logística no se inicializó correctamente")
     
     # Inicializar modelo de Random Forest
     print("\n[2/2] Inicializando Random Forest...")
     initialize_rf_model()
     if rf_metrics_global and rf_metrics_global.get('accuracy', 0) > 0:
-        print("✓ Random Forest inicializado correctamente")
+        print("Random Forest inicializado correctamente")
     else:
-        print("⚠ Advertencia: Random Forest no se inicializó correctamente")
+        print("Advertencia: Random Forest no se inicializó correctamente")
     
     print("\n" + "="*60)
     print("Iniciando servidor Flask en http://0.0.0.0:5000")
