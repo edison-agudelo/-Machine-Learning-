@@ -1,0 +1,89 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="row">
+  <div class="col-12">
+    <h2 class="mb-4">Conceptos básicos — Algoritmos de Clasificación</h2>
+    <p class="lead">Síntesis teórica de los principales algoritmos de clasificación en Machine Learning.</p>
+
+    <div class="card mb-4">
+      <div class="card-body">
+        <h5 class="card-title">Estructura del Mapa Conceptual</h5>
+        <p>El mapa conceptual organiza los algoritmos de clasificación en las siguientes categorías:</p>
+        <ul class="list-group list-group-flush">
+          <li class="list-group-item">
+            <strong>Algoritmos Lineales:</strong>
+            <ul>
+              <li><strong>Regresión Logística:</strong> Utiliza la función sigmoide para probabilidades, modelando odds/logit. Pros: interpretable, rápido. Contras: asume linealidad.</li>
+              <li><strong>SVM Lineal:</strong> Maximiza el margen entre clases. Parámetro C controla regularización.</li>
+            </ul>
+          </li>
+          
+          <li class="list-group-item">
+            <strong>Basados en Distancia:</strong>
+            <ul>
+              <li><strong>k-NN:</strong> Clasifica según k vecinos más cercanos. Usa métricas euclídea o Manhattan. Requiere normalización de datos.</li>
+            </ul>
+          </li>
+          
+          <li class="list-group-item">
+            <strong>Probabilísticos:</strong>
+            <ul>
+              <li><strong>Naive Bayes:</strong> Asume independencia condicional entre features. Variantes: Multinomial (texto) y Gaussiano (features continuas).</li>
+            </ul>
+          </li>
+          
+          <li class="list-group-item">
+            <strong>Árboles y Ensambles:</strong>
+            <ul>
+              <li><strong>Árbol de Decisión:</strong> Usa Gini o Entropía para splits. Control: profundidad máxima. Propenso a overfitting.</li>
+              <li><strong>Random Forest:</strong> Ensamble con bagging. Parámetros: n_estimators, OOB error. Robusto y versátil.</li>
+              <li><strong>Gradient Boosting:</strong> Aprendizaje aditivo secuencial. Controla tasa de aprendizaje y profundidad. Variantes: XGBoost, LightGBM, CatBoost.</li>
+            </ul>
+          </li>
+          
+          <li class="list-group-item">
+            <strong>Redes Neuronales:</strong>
+            <ul>
+              <li><strong>MLP (Perceptrón Multicapa):</strong> Capas densas con funciones de activación (ReLU, sigmoid). Requiere regularización (dropout, L2).</li>
+            </ul>
+          </li>
+          
+          <li class="list-group-item">
+            <strong>Tópicos Transversales:</strong>
+            <ul>
+              <li><strong>Preprocesamiento:</strong> Escalado (StandardScaler, MinMaxScaler) esencial para k-NN, SVM, MLP. One-hot encoding para categóricas. Imputación de valores faltantes.</li>
+              <li><strong>Métricas:</strong> Accuracy, Precision, Recall, F1-score, ROC-AUC, Matriz de Confusión para evaluación completa.</li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="card mb-4">
+      <div class="card-body">
+        <h5 class="card-title">Mapa Conceptual Visual</h5>
+        <p class="text-muted">Exporta tu mapa de MindMeister y guárdalo en <code>static/images/mapa_clasificacion.png</code></p>
+        <div class="text-center p-4 bg-light border rounded">
+          <img src="{{ url_for('static', filename='images/mapa_clasificacion.png') }}" 
+               alt="Mapa conceptual de clasificación" 
+               class="img-fluid"
+               onerror="this.onerror=null; this.src='data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' width=\'600\' height=\'400\'%3E%3Crect fill=\'%23f0f0f0\' width=\'600\' height=\'400\'/%3E%3Ctext x=\'50%25\' y=\'50%25\' dominant-baseline=\'middle\' text-anchor=\'middle\' font-family=\'sans-serif\' font-size=\'20\' fill=\'%23666\'%3EImagen del mapa conceptual aquí%3C/text%3E%3C/svg%3E';">
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-body">
+        <h5 class="card-title">Referencias (APA 7)</h5>
+        <ol>
+          <li>Pedregosa, F., Varoquaux, G., Gramfort, A., Michel, V., Thirion, B., Grisel, O., ... & Duchesnay, É. (2011). Scikit-learn: Machine learning in Python. <em>Journal of Machine Learning Research</em>, 12, 2825-2830.</li>
+          
+          <li>Friedman, J., Hastie, T., & Tibshirani, R. (2001). <em>The elements of statistical learning</em> (Vol. 1, No. 10). Springer series in statistics.</li>
+          
+          <li>Breiman, L. (2001). Random forests. <em>Machine Learning</em>, 45(1), 5-32. https://doi.org/10.1023/A:1010933404324</li>
+        </ol>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

@@ -1,4 +1,3 @@
-# scripts/random_forest_rotacion.py
 import os
 import joblib
 import pandas as pd
@@ -75,12 +74,13 @@ def train_and_evaluate_model(csv_path="data/rotacion_empleados.csv", save=True):
         joblib.dump(pipe, MODEL_PATH)
 
     # Guardar matriz de confusión como imagen (2x2)
-    plt.figure(figsize=(4,4))
+    plt.figure(figsize=(5,4))
     sns.heatmap(cm, annot=True, fmt='d', cmap='Blues', cbar=False,
                 xticklabels=['Pred Baja (0)','Pred Alta (1)'],
                 yticklabels=['Real Baja (0)','Real Alta (1)'])
     plt.xlabel('Predicho')
     plt.ylabel('Real')
+    plt.title('Matriz de Confusión - Random Forest')
     plt.tight_layout()
     plt.savefig(CM_IMG_PATH)
     plt.close()
@@ -91,6 +91,10 @@ def train_and_evaluate_model(csv_path="data/rotacion_empleados.csv", save=True):
     }
 
     return metrics, report, CM_IMG_PATH
+
+def evaluate():
+    """Función expuesta para evaluación (genera métricas e imágenes)"""
+    return train_and_evaluate_model(save=False)
 
 def predict_label(input_dict, threshold=0.5):
     """
